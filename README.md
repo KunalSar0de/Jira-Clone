@@ -1,2 +1,4 @@
-# Jira-Clone
-A full-featured Jira clone built with .NET Web Api. Manage projects, track issues, and collaborate with your team effectively.
+- Project has Team (Team table has assigned project id)
+- Team has Users (Users table has assigned Team id)
+- Members has Issues (Issues table has assigned Members id)
+- Issues has assigned statuses and comments
