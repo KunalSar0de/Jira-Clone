@@ -58,7 +58,6 @@ namespace Jira.Services.Impl
                 }
             }
 
-            // If less than 2 capital letters, add more characters from the beginning
             if (count < 2)
             {
                 for (int i = 0; i < name.Length && result.Length < 2; i++)
