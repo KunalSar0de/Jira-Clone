@@ -45,6 +45,7 @@ namespace JiraAPI.Controllers
         [Route("project")]
         public IActionResult GetAllProjects()
         {
+            //ToDo : Implement pegination
             var user = GetUserDetails();
 
             var allProjectResponse = _projectService.HandleGetProjects(user.Id);

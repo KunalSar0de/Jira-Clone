@@ -40,7 +40,7 @@ namespace Jira.Services.Impl
 
         }
 
-        public async void HandleDeactivateProject(int userId, int projectId)
+        public void HandleDeactivateProject(int userId, int projectId)
         {
             var project = _projectRepository.GetById(projectId);
             project.SetInActiveStatus();
