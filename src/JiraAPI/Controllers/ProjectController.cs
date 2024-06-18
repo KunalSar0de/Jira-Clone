@@ -13,14 +13,17 @@ namespace JiraAPI.Controllers
     public class ProjectController : BaseController
     {
         private readonly IProjectService _projectService;
+        private readonly IIdEncoderDecoder _idEncoderDecoder;
+
         public ProjectController
         (
             ITokenHelperService tokenHelperService,
-            IProjectService projectService
-        )
+            IProjectService projectService,
+            IIdEncoderDecoder idEncoderDecoder)
         : base(tokenHelperService)
         {
             _projectService = projectService;
+            _idEncoderDecoder = idEncoderDecoder;
         }
 
 
@@ -38,24 +41,54 @@ namespace JiraAPI.Controllers
             return Created("project", projectCreatedResponse);
         }
 
-
-        [HttpPut]
+        [HttpGet]
         [Route("project")]
-        public IActionResult UpdateProject([FromBody] CreateProjectRequest createProjectRequest)
+        public IActionResult GetAllProjects()
         {
-            if (createProjectRequest == null)
-                return BadRequest();
+            var user = GetUserDetails();
 
-            return Ok(createProjectRequest);
+            var allProjectResponse = _projectService.HandleGetProjects(user.Id);
+
+            return Ok(allProjectResponse);
         }
 
 
+        [HttpGet]
+        [Route("project/{projectId}")]
+        public IActionResult GetProjectById([FromRoute] string projectId)
+        {
+            if (string.IsNullOrWhiteSpace(projectId))
+                return BadRequest();
+
+            var userId = GetUserDetails().Id;
+
+            var parsedProjectId = _idEncoderDecoder.DecodeId(projectId);
+            if (parsedProjectId == 0)
+                return BadRequest();
+
+            var getByIdResponse = _projectService.HandleGetProjectById(userId, parsedProjectId);
+
+            return Ok(getByIdResponse);
+        }
+
+
+
         [HttpDelete]
-        [Route("project")]
-        public IActionResult DeleteProject()
+        [Route("project/{projectId}")]
+        public IActionResult DeleteProject([FromRoute] string projectId)
         {
 
+            if (string.IsNullOrWhiteSpace(projectId))
+                return BadRequest();
 
+            var userId = GetUserDetails().Id;
+
+            var parsedProjectId = _idEncoderDecoder.DecodeId(projectId);
+            if (parsedProjectId == 0)
+                return BadRequest();
+
+            _projectService.HandleDeactivateProject(userId, parsedProjectId);
+            
             return Ok();
         }
 

@@ -17,7 +17,14 @@ namespace Jira.Services.Impl
 
         public int DecodeId(string id)
         {
-            return _hashids.Decode(id)[0];
+            try
+            {
+                return _hashids.Decode(id)[0];
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
         public string EncodeId(int id)

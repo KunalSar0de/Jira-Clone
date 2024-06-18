@@ -40,6 +40,26 @@ namespace Jira.Services.Impl
 
         }
 
+        public async void HandleDeactivateProject(int userId, int projectId)
+        {
+            var project = _projectRepository.GetById(projectId);
+            project.SetInActiveStatus();
+            _projectRepository.Update(project);
+        }
+
+        public ProjectCreatedResponse HandleGetProjectById(int userId, int projectId)
+        {
+            var project = _projectRepository.GetProjectsBasedOnId(userId, projectId);
+            return _mapper.Map<ProjectCreatedResponse>(project);
+        }
+
+
+        public List<ProjectCreatedResponse> HandleGetProjects(int userId)
+        {
+            var projects = _projectRepository.GetAllProjectsBasedOnCreaatedBy(userId);
+            return _mapper.Map<List<ProjectCreatedResponse>>(projects);
+        }
+
         private string GenerateProjectKey(string name)
         {
             StringBuilder result = new StringBuilder();

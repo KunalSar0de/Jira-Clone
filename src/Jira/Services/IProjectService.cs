@@ -10,5 +10,8 @@ namespace Jira.Services
     public interface IProjectService
     {
         ProjectCreatedResponse HandleCreateProject(CreateProjectRequest createProjectRequest, int userId);
+        List<ProjectCreatedResponse> HandleGetProjects(int userId);
+        ProjectCreatedResponse HandleGetProjectById(int userId,  int projectId);
+        void HandleDeactivateProject(int userId, int projectId);
     }
 }

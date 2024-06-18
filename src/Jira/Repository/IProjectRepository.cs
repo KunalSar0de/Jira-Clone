@@ -9,6 +9,8 @@ namespace Jira.Repository
 {
     public interface IProjectRepository : IBaseRepository<Project>
     {
-        
+        bool IsProjectNameAvailable(string projectName, int userId);
+        List<Project> GetAllProjectsBasedOnCreaatedBy(int userId);
+        Project GetProjectsBasedOnId(int userId, int projectId);    
     }
 }

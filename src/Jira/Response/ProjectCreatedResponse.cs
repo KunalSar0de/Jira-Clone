@@ -10,6 +10,7 @@ namespace Jira.Response
         public string ProjectId { get; set; }
         public string Name { get; set; }
         public string Key { get; set; }
+        public bool IsActive { get; set; }
         public string CreatedBy { get; set; }
         public string CreatedOn { get; set; }
 

@@ -15,5 +15,11 @@ namespace Jira.Models
         public int CreatedBy { get; set; }
         public bool IsActive { get; set; }
 
+
+        public void SetInActiveStatus()
+        {
+            IsActive = false;
+            ModifiedOn = DateTime.Now;
+        }
     }
 }
