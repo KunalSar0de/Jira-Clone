@@ -36,7 +36,7 @@ namespace JiraAPI.Controllers
 
             var user = GetUserDetails();
 
-            var projectCreatedResponse = _projectService.HandleCreateProject(createProjectRequest, user.Id);
+            var projectCreatedResponse = _projectService.HandleCreateProject(createProjectRequest, user);
 
             return Created("project", projectCreatedResponse);
         }

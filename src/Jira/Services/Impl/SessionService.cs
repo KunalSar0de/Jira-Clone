@@ -57,7 +57,7 @@ namespace Jira.Services.Impl
                 FullName = registerUserRequest.FirstName + " " + registerUserRequest.LastName,
                 IsActive = true,
                 CreatedOn = DateTime.UtcNow,
-                ModifiedOn = DateTime.UtcNow,
+                ModifiedOn = DateTime.UtcNow
             };
             
             var createdUser = _userRepository.Add(user);

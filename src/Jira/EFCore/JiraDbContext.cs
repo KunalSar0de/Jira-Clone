@@ -18,7 +18,7 @@ namespace Jira.EFCore
 
         public DbSet<User> User { get; set; }
         public DbSet<Project> Project { get; set; }
-
+        public DbSet<Team> Team { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

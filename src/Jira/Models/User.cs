@@ -17,8 +17,9 @@ namespace Jira.Models
         public string OTP { get; set; }
         public DateTime OTPCreatedOn { get; set; }
         public int Id { get; set; }
-        // public Project Project { get; set; }
-        public int ProjectId { get; set; }
+        public Project Project { get; set; }
+        public int? ProjectId { get; set; }
+        public bool IsProjectAdmin { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
 
@@ -31,6 +32,14 @@ namespace Jira.Models
         public void SetPasswordSalt()
         {
             Salt = GenerateSalt(10);
+        }
+
+        
+        public void SetProjectAdmin(int projectId)
+        {
+            IsProjectAdmin = true;
+            ProjectId  = projectId;
+            ModifiedOn = DateTime.Now;
         }
 
         private string GenerateSalt(int length)

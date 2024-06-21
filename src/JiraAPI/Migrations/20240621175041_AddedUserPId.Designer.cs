@@ -3,6 +3,7 @@ using System;
 using Jira.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JiraAPI.Migrations
 {
     [DbContext(typeof(JiraDbContext))]
-    partial class JiraDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240621175041_AddedUserPId")]
+    partial class AddedUserPId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,7 +118,7 @@ namespace JiraAPI.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<int?>("ProjectId")
+                    b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
                     b.Property<string>("Salt")
@@ -125,23 +127,7 @@ namespace JiraAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectId");
-
                     b.ToTable("User");
-                });
-
-            modelBuilder.Entity("Jira.Models.User", b =>
-                {
-                    b.HasOne("Jira.Models.Project", "Project")
-                        .WithMany("User")
-                        .HasForeignKey("ProjectId");
-
-                    b.Navigation("Project");
-                });
-
-            modelBuilder.Entity("Jira.Models.Project", b =>
-                {
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

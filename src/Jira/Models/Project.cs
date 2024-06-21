@@ -12,6 +12,7 @@ namespace Jira.Models
         public DateTime ModifiedOn { get; set; }
         public string Name { get; set; }
         public string Key { get; set; }
+        public ICollection<User> User{ get; set; }
         public int CreatedBy { get; set; }
         public bool IsActive { get; set; }
 

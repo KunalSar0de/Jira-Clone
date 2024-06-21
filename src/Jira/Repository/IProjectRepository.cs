@@ -11,6 +11,6 @@ namespace Jira.Repository
     {
         bool IsProjectNameAvailable(string projectName, int userId);
         List<Project> GetAllProjectsBasedOnCreaatedBy(int userId);
-        Project GetProjectsBasedOnId(int userId, int projectId);    
+        Project GetProjectsBasedOnId(int userId, int projectId);  
     }
 }

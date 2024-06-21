@@ -7,5 +7,6 @@ namespace Jira.Repository
     {
         User GetUserByEmail(string email);
         bool IsUserFound(string emailId);
+        void UpdateProjectId(int userId, int projectId);
     }
 }

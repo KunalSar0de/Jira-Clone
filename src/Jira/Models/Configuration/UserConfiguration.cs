@@ -31,10 +31,10 @@ namespace Jira.Models.Configuration
             builder.Property(x => x.OTP)
                 .HasMaxLength(10);
 
-            // builder.HasOne(x=>x.Project)
-            //     .WithMany(x => x.User)
-            //     .HasForeignKey(x => x.ProjectId)
-            //     .IsRequired(false);
+            builder.HasOne(x=>x.Project)
+                .WithMany(x => x.User)
+                .HasForeignKey(x => x.ProjectId)
+                .IsRequired(false);
 
         }
     }

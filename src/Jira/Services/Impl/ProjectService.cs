@@ -13,16 +13,18 @@ namespace Jira.Services.Impl
 {
     public class ProjectService : IProjectService
     {
+        private readonly IUserRepository _userRepository;
         private readonly IProjectRepository _projectRepository;
         private readonly IMapper _mapper;
 
-        public ProjectService(IProjectRepository projectRepository, IMapper mapper)
+        public ProjectService(IProjectRepository projectRepository, IMapper mapper, IUserRepository userRepository)
         {
             _projectRepository = projectRepository;
             _mapper = mapper;
+            _userRepository = userRepository;
         }
 
-        public ProjectCreatedResponse HandleCreateProject(CreateProjectRequest createProjectRequest, int userId)
+        public ProjectCreatedResponse HandleCreateProject(CreateProjectRequest createProjectRequest, User user)
         {
             var project = new Project
             {
@@ -30,11 +32,16 @@ namespace Jira.Services.Impl
                 Key = GenerateProjectKey(createProjectRequest.Name).ToUpper(),
                 CreatedOn = DateTime.Now,
                 ModifiedOn = DateTime.Now,
-                CreatedBy = userId,
+                CreatedBy = user.Id,
                 IsActive = true
             };
 
             var projectResponse = _projectRepository.Add(project);
+
+
+            var updateUser = _userRepository.GetById(user.Id);
+            updateUser.SetProjectAdmin(projectResponse.Id);
+            _userRepository.Update(updateUser);
 
             return _mapper.Map<ProjectCreatedResponse>(projectResponse);
 
